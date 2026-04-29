@@ -1,0 +1,33 @@
+{
+  "name": "cookie-monitor",
+  "description": "Monitor website cookies and sync to WebDAV server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "icons": "tsx scripts/generate-icons.ts",
+    "build": "tsx scripts/generate-icons.ts && wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "@cloudflare/kumo": "^1.19.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@wxt-dev/module-react": "^1.1.5",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "wxt": "^0.20.25"
+  }
+}

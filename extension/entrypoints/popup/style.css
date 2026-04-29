@@ -1,0 +1,73 @@
+@import "@cloudflare/kumo/styles/standalone";
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 360px;
+  min-height: 200px;
+  background: var(--kumo-canvas);
+}
+
+.popup-container {
+  padding: 1rem;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--kumo-border);
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--kumo-surface-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--kumo-border);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.active {
+  background: var(--kumo-success);
+}
+
+.status-dot.inactive {
+  background: var(--kumo-subtle);
+}
+
+.popup-footer {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--kumo-border);
+}
+
+/* Move toast viewport to top-right */
+[data-toast-viewport],
+.toast-viewport,
+[class*="ToastViewport"],
+[class*="toast-viewport"] {
+  position: fixed !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  bottom: auto !important;
+  left: auto !important;
+}
