@@ -38,7 +38,14 @@ func New(shares []config.Share, logger *slog.Logger) *ShareHandler {
 						logger.Error("webdav error",
 							"method", r.Method,
 							"path", r.URL.Path,
+							"remote_addr", r.RemoteAddr,
 							"err", err,
+						)
+					} else {
+						logger.Info("webdav operation",
+							"method", r.Method,
+							"path", r.URL.Path,
+							"remote_addr", r.RemoteAddr,
 						)
 					}
 				},
@@ -53,17 +60,20 @@ func (h *ShareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	shareName, subPath := splitPath(r.URL.Path)
 
 	if shareName == "" {
+		h.logger.Warn("share not found", "path", r.URL.Path, "remote_addr", r.RemoteAddr)
 		http.Error(w, "Not Found", http.StatusNotFound)
 		return
 	}
 
 	entry, ok := h.shares[shareName]
 	if !ok {
+		h.logger.Warn("share not found", "share", shareName, "path", r.URL.Path, "remote_addr", r.RemoteAddr)
 		http.Error(w, "Not Found", http.StatusNotFound)
 		return
 	}
 
 	if !checkAuth(r, entry.cfg.Username, entry.cfg.Password) {
+		h.logger.Warn("unauthorized access", "share", shareName, "path", r.URL.Path, "remote_addr", r.RemoteAddr)
 		w.Header().Set("WWW-Authenticate", `Basic realm="WebDAV"`)
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
